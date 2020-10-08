@@ -10,3 +10,9 @@
     </td>
   </tr>
 </table>
+
+## Screenshot
+
+<p align="center" width="100%">
+  <img src="assets/screenshot.png" alt="screenshot"> 
+</p>
