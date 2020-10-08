@@ -1,0 +1,71 @@
+﻿<mah:MetroWindow x:Class="WinInstall.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" Title="WinInstall" Height="480" Width="920" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0" AutoGenerateColumns="False" BorderBrush="#D3D3D3" BorderThickness="0 0 0 1" CanUserAddRows="false" CanUserResizeRows="False" ItemsSource="{Binding Programs}" GridLinesVisibility="All">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="?" Width="50" HeaderStyle="{StaticResource CenterAlignmentColumnHeaderStyle}" SortMemberPath="Selected">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox Padding="0" IsChecked="{Binding Selected, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Name" SortMemberPath="Name" Width="210">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Icon}" MaxWidth="16" MaxHeight="16" Margin="8" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Type" Width="100" Binding="{Binding Type}" IsReadOnly="True" />
+                <DataGridTemplateColumn Header="Installed" Width="96" CanUserSort="True" SortMemberPath="Installed" HeaderStyle="{StaticResource CenterAlignmentColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Name="MyImage" Source="Assets/Loading.ico" MaxWidth="16" MaxHeight="16" Margin="4" VerticalAlignment="Center" />
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Installed, IsAsync=True}" Value="False">
+                                    <Setter TargetName="MyImage" Property="Source" Value="Assets/False.ico" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Installed, IsAsync=True}" Value="True">
+                                    <Setter TargetName="MyImage" Property="Source" Value="Assets/True.ico" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Updated" Width="96" CanUserSort="True" SortMemberPath="Updated" HeaderStyle="{StaticResource CenterAlignmentColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Name="MyImage" Source="Assets/Loading.ico" MaxWidth="16" MaxHeight="16" Margin="4" VerticalAlignment="Center" />
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Updated, IsAsync=True}" Value="false">
+                                    <Setter TargetName="MyImage" Property="Source" Value="Assets/False.ico" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Updated, IsAsync=True}" Value="true">
+                                    <Setter TargetName="MyImage" Property="Source" Value="Assets/True.ico" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Info}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="1" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ProgressBar Grid.Column="0" />
+            <Button Grid.Column="1" Margin="8 0 0 0" Command="{Binding Path=RefreshCommand}">Refresh</Button>
+            <Button Grid.Column="2" Margin="8 0 0 0" Command="{Binding Path=InstallCommand}">Install</Button>
+        </Grid>
+    </Grid>
+</mah:MetroWindow>
