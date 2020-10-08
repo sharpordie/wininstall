@@ -10,6 +10,10 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<ApplicationManifest>Assets/App.manifest</ApplicationManifest>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<Content Include="Assets/**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -18,6 +22,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="MahApps.Metro" Version="2.2.0" />
+		<PackageReference Include="PlaywrightSharp" Version="0.142.0" />
 	</ItemGroup>
 
 </Project>
